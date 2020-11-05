@@ -74,9 +74,11 @@ namespace DevAttic.ConfigCrypter.Crypters
 
         private void InitKeys()
         {
-            using var certificate = _certificateLoader.LoadCertificate();
-            _privateKey = certificate.GetRSAPrivateKey();
-            _publicKey = certificate.GetRSAPublicKey();
+            using (var certificate = _certificateLoader.LoadCertificate())
+            {
+                _privateKey = certificate.GetRSAPrivateKey();
+                _publicKey = certificate.GetRSAPublicKey();
+            }
         }
     }
 }

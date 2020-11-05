@@ -25,12 +25,13 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
         {
             base.Load();
 
-            using var crypter = _jsonConfigSource.CrypterFactory(_jsonConfigSource);
-
-            foreach (var key in _jsonConfigSource.KeysToDecrypt)
+            using (var crypter = _jsonConfigSource.CrypterFactory(_jsonConfigSource))
             {
-                var encryptedValue = Data[key];
-                Data[key] = crypter.DecryptString(encryptedValue);
+                foreach (var key in _jsonConfigSource.KeysToDecrypt)
+                {
+                    var encryptedValue = Data[key];
+                    Data[key] = crypter.DecryptString(encryptedValue);
+                }
             }
         }
     }

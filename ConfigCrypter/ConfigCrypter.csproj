@@ -1,15 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>DevAttic.ConfigCrypter</PackageId>
-		<Authors>DevAttic</Authors>
+		<Authors>devattic</Authors>
 		<Company>DevAttic</Company>
 		<Product>DevAttic ConfigCrypter</Product>
 		<RootNamespace>DevAttic.ConfigCrypter</RootNamespace>
 		<AssemblyName>DevAttic.ConfigCrypter</AssemblyName>
-		<PackageIcon>devattic_configcrypter-icon color 512.png</PackageIcon>
+		<PackageIcon>logo.png</PackageIcon>
 		<Description>DevAttic ConfigCrypter is a library that enables the user to work with decrypted configuration files.</Description>
+		<PackageLicenseFile></PackageLicenseFile>
+		<RepositoryUrl>https://github.com/devattic/ConfigCrypter</RepositoryUrl>
+		<PackageTags>netcore aspnetcore netstandard config appsettings encryption decryption</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,11 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\..\..\Downloads\logo pack devattic configcrypter(1)\logo pack devattic configcrypter\devattic_configcrypter-icon color 512.png">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
-	  <None Include="devattic_configcrypter-icon color 512.png">
+	  <None Include="logo.png">
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>

@@ -66,7 +66,7 @@ namespace DevAttic.ConfigCrypter
             var currentConfigDirectory = Path.GetDirectoryName(currentConfigFilePath);
             var newFilename =
                 $"{Path.GetFileNameWithoutExtension(currentConfigFilePath)}{postfix}{Path.GetExtension(currentConfigFilePath)}";
-            var targetFile = Path.Combine(currentConfigDirectory!, newFilename);
+            var targetFile = Path.Combine(currentConfigDirectory, newFilename);
 
             return targetFile;
         }
