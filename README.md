@@ -5,7 +5,7 @@
 The DevAttic ConfigCrypter makes it easy for you to encrypt and decrypt config files. It consists of two parts. A command line utility that lets you encrypt keys in your JSON configuration files and a library that decrypts them on the fly in your .NET Standard applications.
 
 ## WARNING
-Encrypted configuration files will not make your server infrastructure unhackable. Usually the certificate to decrypt is hosted on the same server as your web application. This means an attacker could decrypt your config file if he tries hard enough. 
+Encrypted configuration files will not make your server infrastructure unhackable. Usually the certificate to decrypt is hosted on the same server as your web application. This means an attacker could decrypt your config if your server is not secure and the attacker gains access.
 
 Additional security could be achieved by:
 - Storing your certficate in the windows certificate store (supported by ConfigCrypter) and restricting access to it.
