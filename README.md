@@ -28,7 +28,7 @@ We want to encrypt the value with the key `Nested.KeyToEncrypt`. Notice the sepa
 
 Currently only JSON is supported and the `JsonConfigCrypter` is using the JSONPath Syntax to define your keys ([Link](https://goessner.net/articles/JsonPath/)). Altough JSONPath usually needs a $ to define the root of the object you can leave it out here.
 
-To install the crypter command line utility just execute `dotnet tool install -g DevAttic.ConfigCrypter.Console`. After that you can use it with the command `config-crypter` from your command line.
+To install the crypter [command line utility](https://www.nuget.org/packages/DevAttic.ConfigCrypter.Console/) just execute `dotnet tool install -g DevAttic.ConfigCrypter.Console`. After that you can use it with the command `config-crypter` from your command line.
 
 To encrypt our key from above we simple execute:
 `config-crypter encrypt -p c:\path\to\cert.pfx -f c:\path\to\config.json -k "Nested.KeyToEncrypt"`.
@@ -53,6 +53,8 @@ The following command line arguments can be passed for the encrypt and decrypt c
 ```
 
 ## .NET Core integration
+Install the nuget package [DevAttic.ConfigCrypter](https://www.nuget.org/packages/DevAttic.ConfigCrypter/)
+
 To use your encrypted configuration file in your .NET Core applications, DevAttic ConfigCrypter provides convenient extension methods to register the needed configuration providers.
 
 There are two extension methods that can be used to integrate encrypted configuration files.
