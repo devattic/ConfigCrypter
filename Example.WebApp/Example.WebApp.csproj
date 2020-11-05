@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="test-certificate.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="test-certificate.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConfigCrypter\ConfigCrypter.csproj" />
+  </ItemGroup>
+
+
+</Project>

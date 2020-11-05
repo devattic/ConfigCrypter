@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<PackageId>DevAttic.ConfigCrypter</PackageId>
+		<Authors>DevAttic</Authors>
+		<Company>DevAttic</Company>
+		<Product>DevAttic ConfigCrypter</Product>
+		<RootNamespace>DevAttic.ConfigCrypter</RootNamespace>
+		<AssemblyName>DevAttic.ConfigCrypter</AssemblyName>
+		<PackageIcon>devattic_configcrypter-icon color 512.png</PackageIcon>
+		<Description>DevAttic ConfigCrypter is a library that enables the user to work with decrypted configuration files.</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.8.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\..\Downloads\logo pack devattic configcrypter(1)\logo pack devattic configcrypter\devattic_configcrypter-icon color 512.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	  <None Include="devattic_configcrypter-icon color 512.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
