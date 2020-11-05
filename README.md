@@ -4,6 +4,19 @@
 ## What is DevAttic ConfigCrypter
 The DevAttic ConfigCrypter makes it easy for you to encrypt and decrypt config files. It consists of two parts. A command line utility that lets you encrypt keys in your JSON configuration files and a library that decrypts them on the fly in your .NET Standard applications.
 
+## WARNING
+Encrypted configuration files will not make your server infrastructure unhackable. Usually the certificate to decrypt is hosted on the same server as your web application. This means an attacker could decrypt your config file if he tries hard enough. 
+
+Additional security could be achieved by:
+- Storing your certficate in the windows certificate store (supported by ConfigCrypter) and restricting access to it.
+- Protect your certificate with a password and embed it in the source code (current not supported).
+
+Also these methods would not be perfectly safe. In fact it only makes things harder for an attacker.
+
+Other possibilities would be using Environment variables or the Secret Manager tool, but in these variants the settings are completely unencrypted. For production scenarios Microsoft recommends using the Azure Key Vault, but also this is not perfectly safe and forces you to use Azure.
+
+It is definitely required to secure your server infrastructure, as this is the only way to protect your connection strings and other sensitive configuration values.
+
 ## Advantages
 - Lets you encrypt only certain keys in your config, so the rest of the config is still readable.
 - Access the encrypted values the same way you are used to in your .NET Core applications.
