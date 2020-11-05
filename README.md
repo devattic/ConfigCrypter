@@ -9,7 +9,7 @@ Encrypted configuration files will not make your server infrastructure unhackabl
 
 Additional security could be achieved by:
 - Storing your certficate in the windows certificate store (supported by ConfigCrypter) and restricting access to it.
-- Protect your certificate with a password and embed it in the source code (current not supported).
+- Protect your certificate with a password that is embedded in your source code (currently not supported, but could be easily implemented).
 
 Also these methods would not be perfectly safe. In fact it only makes things harder for an attacker.
 
