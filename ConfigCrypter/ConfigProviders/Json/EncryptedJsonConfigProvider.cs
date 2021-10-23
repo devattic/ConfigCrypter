@@ -29,8 +29,10 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
             {
                 foreach (var key in _jsonConfigSource.KeysToDecrypt)
                 {
-                    var encryptedValue = Data[key];
-                    Data[key] = crypter.DecryptString(encryptedValue);
+                    if (Data.TryGetValue(key, out var encryptedValue))
+                    {
+                        Data[key] = crypter.DecryptString(encryptedValue);
+                    }
                 }
             }
         }

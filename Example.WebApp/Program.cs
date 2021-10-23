@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DevAttic.ConfigCrypter.Extensions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace Example.WebApp
@@ -18,11 +19,11 @@ namespace Example.WebApp
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .ConfigureAppConfiguration(cfg =>
+                .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
-                    cfg.AddEncryptedAppSettings(crypter =>
+                    cfg.AddEncryptedAppSettings(hostingContext.HostingEnvironment, crypter =>
                     {
-                        crypter.CertificatePath = "test-certificate.pfx";
+                        crypter.CertificatePath = "cert.pfx";
                         crypter.KeysToDecrypt = new List<string> { "Nested:KeyToEncrypt" };
                     });
                 });

@@ -1,7 +1,8 @@
-﻿using System;
-using DevAttic.ConfigCrypter.CertificateLoaders;
+﻿using DevAttic.ConfigCrypter.CertificateLoaders;
 using DevAttic.ConfigCrypter.ConfigProviders.Json;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace DevAttic.ConfigCrypter.Extensions
 {
@@ -23,11 +24,34 @@ namespace DevAttic.ConfigCrypter.Extensions
             }
 
             var configSource = new EncryptedJsonConfigSource { Path = "appsettings.json" };
-            configAction(configSource);
+            configAction?.Invoke(configSource);
 
-            InitializeCertificateLoader(configSource);
+            return AddEncryptedJsonConfig(builder, configSource);
+        }
 
-            builder.Add(configSource);
+        /// <summary>
+        /// Adds a provider to decrypt keys in the appsettings.json and the corresponding environment appsettings files.
+        /// </summary>
+        /// <param name="builder">A ConfigurationBuilder instance.</param>
+        /// <param name="configAction">An action used to configure the configuration source.</param>
+        /// <param name="hostEnvironment">The current host environment. Used to add environment specific appsettings files. (appsettings.Development.json, appsettings.Production.json)</param>
+        /// <returns>The current ConfigurationBuilder instance.</returns>
+        public static IConfigurationBuilder AddEncryptedAppSettings(
+            this IConfigurationBuilder builder, IHostEnvironment hostEnvironment, Action<EncryptedJsonConfigSource> configAction)
+        {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            var appSettingSource = new EncryptedJsonConfigSource { Path = "appsettings.json" };
+            var environmentSource = new EncryptedJsonConfigSource { Path = $"appsettings.{hostEnvironment.EnvironmentName}.json", Optional = true };
+            configAction?.Invoke(appSettingSource);
+            configAction?.Invoke(environmentSource);
+
+            AddEncryptedJsonConfig(builder, appSettingSource);
+            AddEncryptedJsonConfig(builder, environmentSource);
+
             return builder;
         }
 
@@ -47,11 +71,25 @@ namespace DevAttic.ConfigCrypter.Extensions
             }
 
             var configSource = new EncryptedJsonConfigSource();
-            configAction(configSource);
+            configAction?.Invoke(configSource);
 
             InitializeCertificateLoader(configSource);
 
             builder.Add(configSource);
+            return builder;
+        }
+
+        /// <summary>
+        /// Adds a provider to decrypt keys in the given json config file by using the passed EncryptedJsonConfigSource.
+        /// </summary>
+        /// <param name="builder">A ConfigurationBuilder instance.</param>
+        /// <param name="configSource">The fully configured config source.</param>
+        /// <returns>The current ConfigurationBuilder instance.</returns>
+        public static IConfigurationBuilder AddEncryptedJsonConfig(this IConfigurationBuilder builder, EncryptedJsonConfigSource configSource)
+        {
+            InitializeCertificateLoader(configSource);
+            builder.Add(configSource);
+
             return builder;
         }
 
