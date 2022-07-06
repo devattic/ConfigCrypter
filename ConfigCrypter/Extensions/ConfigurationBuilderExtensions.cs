@@ -97,7 +97,7 @@ namespace DevAttic.ConfigCrypter.Extensions
         {
             if (!string.IsNullOrEmpty(config.CertificatePath))
             {
-                config.CertificateLoader = new FilesystemCertificateLoader(config.CertificatePath);
+                config.CertificateLoader = new FilesystemCertificateLoader(config.CertificatePath, config.CertificatePassword);
             }
             else if (!string.IsNullOrEmpty(config.CertificateSubjectName))
             {

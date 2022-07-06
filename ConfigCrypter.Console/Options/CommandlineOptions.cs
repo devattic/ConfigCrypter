@@ -10,6 +10,9 @@ namespace ConfigCrypter.Console.Options
         [Option('n', "name", Required = true, HelpText = "The subject name of the certificate (CN). This can only be used in Windows environments.", Group = "CertLocation")]
         public string CertSubjectName { get; set; }
 
+        [Option('s', "password", Required = false, HelpText = "Password of the certificate (if available).", Default = null)]
+        public string CertificatePassword { get; set; }
+
         [Option('k', "key", Required = true, HelpText = "The key to encrypt in the config file.")]
         public string Key { get; set; }
 

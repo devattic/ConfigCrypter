@@ -30,7 +30,7 @@ namespace ConfigCrypter.Console
 
             if (!string.IsNullOrEmpty(options.CertificatePath))
             {
-                certLoader = new FilesystemCertificateLoader(options.CertificatePath);
+                certLoader = new FilesystemCertificateLoader(options.CertificatePath, options.CertificatePassword);
             }
             else if (!string.IsNullOrEmpty(options.CertSubjectName))
             {

@@ -8,14 +8,17 @@ namespace DevAttic.ConfigCrypter.CertificateLoaders
     public class FilesystemCertificateLoader : ICertificateLoader
     {
         private readonly string _certificatePath;
+        private readonly string _certificatePassword;
 
         /// <summary>
         /// Creates an instance of the certificate loader.
         /// </summary>
         /// <param name="certificatePath">Fully qualified path to the certificate (.pfx file).</param>
-        public FilesystemCertificateLoader(string certificatePath)
+        /// <param name="certificatePassword">Password of the certificate, if available.</param>
+        public FilesystemCertificateLoader(string certificatePath, string certificatePassword = null)
         {
             _certificatePath = certificatePath;
+            _certificatePassword = certificatePassword;
         }
 
         /// <summary>
@@ -24,7 +27,9 @@ namespace DevAttic.ConfigCrypter.CertificateLoaders
         /// <returns>A X509Certificate2 instance.</returns>
         public X509Certificate2 LoadCertificate()
         {
-            return new X509Certificate2(_certificatePath);
+            return string.IsNullOrEmpty(_certificatePassword) ?
+                new X509Certificate2(_certificatePath) :
+                new X509Certificate2(_certificatePath, _certificatePassword);
         }
     }
 }
