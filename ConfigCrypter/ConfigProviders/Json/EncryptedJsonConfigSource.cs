@@ -24,7 +24,10 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
         /// The subject name of the certificate (Issued for).
         /// </summary>
         public string CertificateSubjectName { get; set; }
-
+        /// <summary>
+        /// The password of the certificate or null, if the certificate has no password.
+        /// </summary>
+        public string CertificatePassword { get; set; } = null;
         /// <summary>
         /// Factory function that is used to create an instance of the crypter.
         /// The default factory uses the RSACrypter and passes it the given certificate loader.
