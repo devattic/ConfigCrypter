@@ -23,6 +23,7 @@ namespace Example.WebApp
                 {
                     cfg.AddEncryptedAppSettings(hostingContext.HostingEnvironment, crypter =>
                     {
+                        crypter.ReloadOnChange = true;
                         crypter.CertificatePath = "cert.pfx";
                         crypter.KeysToDecrypt = new List<string> { "Nested:KeyToEncrypt" };
                     });
