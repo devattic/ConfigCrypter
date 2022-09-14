@@ -1,11 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration.Json;
+using System;
+using System.IO;
+using System.Resources;
+using System.Text.Json;
 
 namespace DevAttic.ConfigCrypter.ConfigProviders.Json
 {
     /// <summary>
     ///  JSON configuration provider that uses the underlying crypter to decrypt the given keys.
     /// </summary>
-    public class EncryptedJsonConfigProvider : JsonConfigurationProvider
+    public partial class EncryptedJsonConfigProvider : JsonConfigurationProvider
     {
         private readonly EncryptedJsonConfigSource _jsonConfigSource;
 
@@ -19,21 +23,24 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
         }
 
         /// <summary>
-        /// Loads the JSON configuration file and decrypts all configured keys with the given crypter.
+        /// Loads the JSON configuration from stream and decrypts all configured keys with the given crypter.
         /// </summary>
-        public override void Load()
+        public override void Load(Stream stream)
         {
-            base.Load();
-
-            using (var crypter = _jsonConfigSource.CrypterFactory(_jsonConfigSource))
+            try
             {
-                foreach (var key in _jsonConfigSource.KeysToDecrypt)
+                using (var crypter = _jsonConfigSource.CrypterFactory(_jsonConfigSource))
                 {
-                    if (Data.TryGetValue(key, out var encryptedValue))
-                    {
-                        Data[key] = crypter.DecryptString(encryptedValue);
-                    }
+                    Data = EncryptedJsonConfigurationFileParser.Parse(stream, crypter, _jsonConfigSource.KeysToDecrypt);
                 }
+            }
+            catch (JsonException e)
+            {
+                throw new FormatException($"Error JSONParseError {e.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to decrypt keys", ex);
             }
         }
     }
