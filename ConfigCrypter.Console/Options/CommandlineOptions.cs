@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Newtonsoft.Json;
 
 namespace ConfigCrypter.Console.Options
 {
@@ -24,6 +25,10 @@ namespace ConfigCrypter.Console.Options
 
         [Option("format", Default = ConfigFormat.Json, HelpText = "The format of the config file.")]
         public ConfigFormat ConfigFormat { get; set; }
+
+        [Option('x', "separator", Required = false, HelpText = "Split the key (if the key has multiple value).", Default = ';')]
+        public char Separator { get; set; }
+
     }
 
     public enum ConfigFormat

@@ -30,10 +30,11 @@ namespace DevAttic.ConfigCrypter
         /// </summary>
         /// <param name="filePath">Path of the configuration file.</param>
         /// <param name="configKey">Key to decrypt, passed in a format the underlying config crypter understands.</param>
-        public void DecryptKeyInFile(string filePath, string configKey)
+        /// <param name="separator">Split the key if it has multiple value.</param>
+        public void DecryptKeyInFile(string filePath, string configKey, char separator = ';')
         {
             var configContent = File.ReadAllText(filePath);
-            var decryptedConfigContent = _configCrypter.DecryptKey(configContent, configKey);
+            var decryptedConfigContent = _configCrypter.DecryptKey(configContent, configKey, separator);
 
             var targetFilePath = GetDestinationConfigPath(filePath, _options.DecryptedConfigPostfix);
             File.WriteAllText(targetFilePath, decryptedConfigContent);
@@ -47,10 +48,11 @@ namespace DevAttic.ConfigCrypter
         /// </summary>
         /// <param name="filePath">Path of the configuration file.</param>
         /// <param name="configKey">Key to encrypt, passed in a format the underlying config crypter understands.</param>
-        public void EncryptKeyInFile(string filePath, string configKey)
+        /// <param name="separator">Split the key if it has multiple value.</param>
+        public void EncryptKeyInFile(string filePath, string configKey, char separator = ';')
         {
             var configContent = File.ReadAllText(filePath);
-            var encryptedConfigContent = _configCrypter.EncryptKey(configContent, configKey);
+            var encryptedConfigContent = _configCrypter.EncryptKey(configContent, configKey, separator);
 
             var targetFilePath = GetDestinationConfigPath(filePath, _options.EncryptedConfigPostfix);
             File.WriteAllText(targetFilePath, encryptedConfigContent);

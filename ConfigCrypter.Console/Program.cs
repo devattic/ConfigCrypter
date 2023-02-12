@@ -15,12 +15,12 @@ namespace ConfigCrypter.Console
                 .WithParsed<EncryptOptions>(opts =>
                 {
                     var crypter = CreateCrypter(opts);
-                    crypter.EncryptKeyInFile(opts.ConfigFile, opts.Key);
+                    crypter.EncryptKeyInFile(opts.ConfigFile, opts.Key, opts.Separator);
                 })
                 .WithParsed<DecryptOptions>(opts =>
                 {
                     var crypter = CreateCrypter(opts);
-                    crypter.DecryptKeyInFile(opts.ConfigFile, opts.Key);
+                    crypter.DecryptKeyInFile(opts.ConfigFile, opts.Key, opts.Separator);
                 });
         }
 
