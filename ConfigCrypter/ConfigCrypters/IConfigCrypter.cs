@@ -14,7 +14,7 @@ namespace DevAttic.ConfigCrypter.ConfigCrypters
         /// <param name="configKey">Key of the config entry.</param>
         /// <returns>The content of the config file where the key has been decrypted.</returns>
         /// <remarks>It up to the implementer how to interpret the format of the config key.</remarks>
-        string DecryptKey(string configFileContent, string configKey);
+        string DecryptKey(string configFileContent, string configKey, char separators = ';');
 
         /// <summary>
         /// Encrypts the key in the given content of a config file.
@@ -23,6 +23,6 @@ namespace DevAttic.ConfigCrypter.ConfigCrypters
         /// <param name="configKey">Key of the config entry.</param>
         /// <returns>The content of the config file where the key has been encrypted.</returns>
         /// <remarks>It up to the implementer how to interpret the format of the config key.</remarks>
-        string EncryptKey(string configFileContent, string configKey);
+        string EncryptKey(string configFileContent, string configKey, char separators = ';');
     }
 }

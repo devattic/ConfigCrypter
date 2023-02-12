@@ -32,7 +32,8 @@ If you now have your certificate you need to decide what keys you want to encryp
 ```json
 {
    "Nested": {
-      "KeyToEncrypt": "This will be encrypted"
+      "KeyToEncrypt": "This will be encrypted",
+      "AdditionalKeyToEncrypt": "This will be encrypted"
    }
 }
 ```
@@ -52,6 +53,15 @@ If you want to prevent the creation of a new file you can simply pass --replace 
 To decrypt the file again you can simply execute:
 `config-crypter decrypt -p c:\path\to\cert.pfx -f c:\path\to\config_encrypted.json -k "Nested.KeyToEncrypt"`
 
+### Multiple Keys Encryption in Single Command
+You can use semicolon ";" as a separator by default. Apart from that you can also specify the separator that you want to use.
+
+To encrypt our keys from above we simple execute:
+`config-crypter encrypt -p c:\path\to\cert.pfx -f c:\path\to\config.json -k "Nested.KeyToEncrypt;Nested.AdditionalKeyToEncrypt"`.
+
+To decrypt the file again you can simply execute:
+`config-crypter decrypt -p c:\path\to\cert.pfx -f c:\path\to\config_encrypted.json -k "Nested.KeyToEncrypt;Nested.AdditionalKeyToEncrypt"`
+
 ## Command line arguments
 The following command line arguments can be passed for the encrypt and decrypt command.
 ```
@@ -60,6 +70,7 @@ The following command line arguments can be passed for the encrypt and decrypt c
 -k, --key        Required. The key to encrypt in the config file.
 -f, --file       Required. The path to the config file.
 -r, --replace    (Default: false) Replaces the original file if passed as parameter.
+-x, --separator  (Default : ';')  Split the key (if the key has multiple value).
 --format         (Default: Json) The format of the config file.
 --help           Display this help screen.
 --version        Display version information.
