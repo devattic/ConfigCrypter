@@ -10,6 +10,9 @@ namespace ConfigCrypter.Console.Options
         [Option('n', "name", Required = true, HelpText = "The subject name of the certificate (CN). This can only be used in Windows environments.", Group = "CertLocation")]
         public string CertSubjectName { get; set; }
 
+        [Option('t', "thumbprint", Required = true, HelpText = "The thumbprint of the certificate (CN). This can only be used in Windows environments.", Group = "CertLocation")]
+        public string CertThumbprint { get; set; }
+
         [Option('s', "password", Required = false, HelpText = "Password of the certificate (if available).", Default = null)]
         public string CertificatePassword { get; set; }
 

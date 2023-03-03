@@ -4,6 +4,7 @@ using DevAttic.ConfigCrypter;
 using DevAttic.ConfigCrypter.CertificateLoaders;
 using DevAttic.ConfigCrypter.ConfigCrypters.Json;
 using DevAttic.ConfigCrypter.Crypters;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ConfigCrypter.Console
 {
@@ -34,7 +35,12 @@ namespace ConfigCrypter.Console
             }
             else if (!string.IsNullOrEmpty(options.CertSubjectName))
             {
-                certLoader = new StoreCertificateLoader(options.CertSubjectName);
+                certLoader = new StoreCertificateLoader(options.CertSubjectName, X509FindType.FindBySubjectName);
+
+            } 
+            else if(!string.IsNullOrEmpty(options.CertThumbprint))
+            {
+                certLoader = new StoreCertificateLoader(options.CertThumbprint, X509FindType.FindByThumbprint);
             }
 
             var configCrypter = new JsonConfigCrypter(new RSACrypter(certLoader));

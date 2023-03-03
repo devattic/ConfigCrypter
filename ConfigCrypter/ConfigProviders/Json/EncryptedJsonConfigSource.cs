@@ -25,6 +25,10 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
         /// </summary>
         public string CertificateSubjectName { get; set; }
         /// <summary>
+        /// The thumbprint of the certificate (Issued for).
+        /// </summary>
+        public string CertificateThumbprint { get; set; }
+        /// <summary>
         /// The password of the certificate or null, if the certificate has no password.
         /// </summary>
         public string CertificatePassword { get; set; } = null;
