@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration.Json;
+using System;
+using System.Security.Cryptography;
 
 namespace DevAttic.ConfigCrypter.ConfigProviders.Json
 {
@@ -31,7 +33,14 @@ namespace DevAttic.ConfigCrypter.ConfigProviders.Json
                 {
                     if (Data.TryGetValue(key, out var encryptedValue))
                     {
-                        Data[key] = crypter.DecryptString(encryptedValue);
+                        try
+                        {
+                            Data[key] = crypter.DecryptString(encryptedValue);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Decryption failed for field: {key}", ex);
+                        }
                     }
                 }
             }
