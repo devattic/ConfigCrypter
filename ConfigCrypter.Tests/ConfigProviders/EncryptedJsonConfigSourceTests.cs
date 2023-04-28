@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevAttic.ConfigCrypter.Extensions;
 using Microsoft.Extensions.Configuration;
 using Xunit;
@@ -40,6 +41,40 @@ namespace DevAttic.ConfigCrypter.Tests.ConfigProviders
             var decryptedValue = configuration["KeyToEncrypt"];
 
             Assert.Equal("This will be encrypted.", decryptedValue);
+        }
+
+        [Fact]
+        public void AddEncryptedAppSettings_FailValNotEncrypted()
+        {
+            var certLoaderMock = Mocks.CertificateLoader;
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddEncryptedAppSettings(config =>
+            {
+                config.KeysToDecrypt = new List<string> { "Test:NotEncryptedError" };
+                config.CertificateLoader = certLoaderMock.Object;
+            });
+            var ex = Record.Exception(() =>
+            {
+                var configuration = configBuilder.Build();
+            });
+            Assert.Equal("Decryption failed for field: Test:NotEncryptedError", ex.Message);
+        }
+
+        [Fact]
+        public void AddEncryptedAppSettings_FailValWrongCertEncoded()
+        {
+            var certLoaderMock = Mocks.CertificateLoader;
+            var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddEncryptedAppSettings(config =>
+            {
+                config.KeysToDecrypt = new List<string> { "Test:WrongCertEncoded" };
+                config.CertificateLoader = certLoaderMock.Object;
+            });
+            var ex = Record.Exception(() =>
+            {
+                var configuration = configBuilder.Build();
+            });
+            Assert.Equal("Decryption failed for field: Test:WrongCertEncoded", ex.Message);
         }
     }
 }
