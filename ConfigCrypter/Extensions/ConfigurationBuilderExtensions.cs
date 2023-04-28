@@ -3,6 +3,7 @@ using DevAttic.ConfigCrypter.ConfigProviders.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DevAttic.ConfigCrypter.Extensions
 {
@@ -101,7 +102,11 @@ namespace DevAttic.ConfigCrypter.Extensions
             }
             else if (!string.IsNullOrEmpty(config.CertificateSubjectName))
             {
-                config.CertificateLoader = new StoreCertificateLoader(config.CertificateSubjectName);
+                config.CertificateLoader = new StoreCertificateLoader(config.CertificateSubjectName, X509FindType.FindBySubjectName);
+            }
+            else if (!string.IsNullOrEmpty(config.CertificateThumbprint))
+            {
+                config.CertificateLoader = new StoreCertificateLoader(config.CertificateThumbprint,  X509FindType.FindByThumbprint);
             }
 
             if (config.CertificateLoader == null)

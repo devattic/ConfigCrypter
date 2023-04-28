@@ -57,6 +57,8 @@ The following command line arguments can be passed for the encrypt and decrypt c
 ```
 -p, --path       (Group: CertLocation) Path of the certificate.
 -n, --name       (Group: CertLocation) The subject name of the certificate (CN). This can only be used in Windows environments.
+-t, --thumbprint (Group: CertLocation) The thumbprint of the certificate. This can only be used in Windows environments.
+-l, --thumbprint-field (Group: CertLocation) The key in the specified config file that contains the thumbprint of the certificate. This can only be used in Windows environments.        
 -k, --key        Required. The key to encrypt in the config file.
 -f, --file       Required. The path to the config file.
 -r, --replace    (Default: false) Replaces the original file if passed as parameter.
